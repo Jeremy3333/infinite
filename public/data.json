@@ -5,5 +5,7 @@
     "wind",
     "earth"
   ],
-  "fusion": []
+  "fusion": [
+    1
+  ]
 }

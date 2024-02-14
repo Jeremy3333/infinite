@@ -26,18 +26,23 @@ const writeData = (data, res) => {
 };
 
 app.post('/api/data', (req, res) => {
+    console.log(`POST request to /api/data with body: ${JSON.stringify(req.body)}`);
     // Write the data to a file
     const receivedData = req.body.value;
     JSONdata.element.push(receivedData); // Assuming element is an array within JSONdata
     writeData(JSONdata, res);
+    console.log('Data:', JSONdata);
 });
 
-app.get('/api/data', (req, res) => {
+app.get('/api/data/element', (req, res) => {
+    console.log('GET request to /api/data/element');
     // Send the data as a response 200 (OK)
     res.status(200).json(JSONdata);
+    console.log('Data:', JSONdata)
 });
 
 app.post('/delete', (req, res) => {
+    console.log(`POST request to /delete with body: ${JSON.stringify(req.body)}`);
     // Extract the value to delete from the request body
     const receivedValue = req.body.value;
 
@@ -49,6 +54,32 @@ app.post('/delete', (req, res) => {
         // If the element is not found, send a response with status 404 (Not Found)
         res.status(404).send('Element not found');
     }
+    console.log('Data:', JSONdata);
+});
+
+app.get('/api/data/fusion', (req, res) => {
+
+    console.log('GET request to /api/data');
+    // Send the data as a response 200 (OK)
+    res.status(200).json(JSONdata.fusion);
+    console.log('Data:', JSONdata)
+});
+
+app.post('/api/data/fusion', (req, res) => {
+    console.log(`POST request to /api/data/fusion with body: ${JSON.stringify(req.body)}`);
+    // Write the data to a file
+    const receivedData = req.body.value;
+    if(receivedData < JSONdata.fusion.length ){
+        JSONdata.fusion[receivedData]++;
+    } else {
+        if(JSONdata.fusion.length === 0){
+            JSONdata.fusion.push(1);
+        } else {
+            JSONdata.fusion.push(JSONdata.fusion.length + 1);
+        }
+    }
+    writeData(JSONdata, res);
+    console.log('Data:', JSONdata);
 });
 
 app.get('/', (req, res) => {
@@ -61,7 +92,7 @@ app.listen(PORT, () => {
 });
 
 // Read initial JSON data when server starts
-let JSONdata = { element: [] }; // Initialize JSONdata
+let JSONdata = { element: [], fusion: [] }; // Initialize JSONdata
 fs.readFile('public/data.json', (err, data) => {
     if (err) {
         console.error(err);

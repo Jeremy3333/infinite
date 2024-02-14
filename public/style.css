@@ -8,6 +8,16 @@ html, body {
     height: 100%;
 }
 
+a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #333333;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 header {
     width: 100%;
     height: 100px;
@@ -19,19 +29,85 @@ header {
 
 label {
     width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
-.fusion {
+input {
+    width: 20%;
+    margin: 20px auto;
+}
+
+label button {
+    width: 20%;
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+#fusion {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
 }
 
-.centerPart {
+#fusion p {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.body {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.tab{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+ul {
     height: 100%;
+    width: 100%;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+}
+
+#fus li{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#fus p {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+li:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+li button {
+    margin-left: 10px;
+    margin-right: 10px;
 }
