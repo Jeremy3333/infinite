@@ -107,23 +107,36 @@ init().then(r => console.log('Initial data:', r));
 
 giveNew.addEventListener('click', async () => {
     let json = ""
+    let temp = {}
 
     if (generated.value !== '') {
-        let temp = {}
         temp.value = generated.value;
         generated.value = '';
 
         json += JSON.stringify(temp);
-        console.log('Sending data:', json);
+    }
+    while (fus.firstChild) {
+        fus.removeChild(fus.firstChild);
     }
 
-    await fetch('/api/data/element', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: json,
+    // chack if the word is already in the list
+    let found = false;
+    JSONdata.element.forEach(element => {
+        if(element.toLowerCase() === temp.value.toLowerCase()){
+            found = true;
+        }
     });
+
+    if(!found){
+        console.log('Sending data:', json);
+        await fetch('/api/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: json,
+        });
+    }
 
     await init()
 });
